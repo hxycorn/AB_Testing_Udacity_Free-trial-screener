@@ -32,10 +32,37 @@ In the given experiment, the following matrics are chosen as the invariant metri
 Evaluation metrics are chosen since there is a possibility of different distribution between experiment and control groups as a function of experiment. Each evaluation metric is associated with a minimum difference (dmin) that must be observed for consideration in the decision to launch the experiment. The ultimate goal is to minimize student frustation and use the limited coaching resources most efficiently. With this in mind, the following conditions must be satisfied -
  - Gross conversion: That is, number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button. (dmin= 0.01) **Decrease gross conversion** is expected if the screener is effective, as less students would enroll in the free trial due to the reminder and would choose to access the course materials for free instead. 
  - Retention: That is, number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by number of user-ids to complete checkout. (dmin=0.01) **Increase retention** is expected if the screener is effective. Since the function is aims to filter out those students who tend to cancel the course early, which means the total number of user-ids to complete checkout would decrease. Therefore the ratio of users who remained enrolled past the 14-day boundary to the number of users to complete checkout should increase.
- - Net conversion: That is, number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by the number of unique cookies to click the "Start free trial" button. (dmin=0.01) This matric could help to evaluate whether the new feature would reduce the number of students to continue past the free trial and eventually complete the course. It is expected to remain show similar distribution in both control and experiemnt groups if the alternative hypothesis is true. 
+ - Net conversion: That is, number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by the number of unique cookies to click the "Start free trial" button. (dmin=0.0075) This matric could help to evaluate whether the new feature would reduce the number of students to continue past the free trial and eventually complete the course. It is expected to remain show similar distribution in both control and experiemnt groups if the alternative hypothesis is true. 
 
 **Unused Metrics**
  - Number of user-ids: That is, number of users who enroll in the free trial. User-ids are tracked only after enrolling in the free trial and equal distribution between the control and experimental branches would not be expected. However, user-id count could be used to evaluate how many enrollments stayed beyond the 14 day free trial boundary. Thus, it's not chosen as the metrics. 
 
 ### Measuring Standard Deviation
 For each of the evaluation metrics, the analytical estimates of standard deviation is calculated for a sample size of 5000 unique cookies visiting the course overview page. The standard deviation are calculated using the [Baseline_Values](Data/Baseline_Values.csv).
+
+**_Analytical Estimates of Standard Deviation of Evaluation Metrics_**
+
+|Evaluation Metric|Standard Deviation|
+|:---:|:---:|
+|Gross conversion|0.0202|
+|Retention|0.0549|
+|Net conversion|0.0156|
+
+### Sizing
+The following calculation is based on the [Baseline_Values](Data/Baseline_Values.csv).
+
+**Number of Samples vs Power**
+The alpha vaue of 0.05 and beta value of 0.2 is used in all the cases. The total number of pageviews needed to achieve enough statistical power for each evaluation metrics in the experiments is calculated separately using the [online calculator](https://www.evanmiller.org/ab-testing/sample-size.html).
+
+**_Pageviews Required for Each Evaluation Metrics_**
+| |Gross Conversion|Retention|Net Conversion|
+|:---|:---:|:---:|:---:|
+|Baseline conversion rate|20.625%|53.0%|10.9313%|
+|Minimum Detectable Effect|1%|1%|0.75%|
+|Significance level α|5%|5%|5%|
+|Statistical power 1−β|80%|80%|80%|
+|Sample size/group|25,835|39,115|27,413|
+|Number of Group|2|2|2|
+|Total sample size|51,670|78,230|54,826|
+|Click or Enrollment Rate|0.08|0.0165|0.08|
+|Total Pageviews|645,875|4,741,212|685,325|
