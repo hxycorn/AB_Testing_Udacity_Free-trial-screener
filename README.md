@@ -1,4 +1,5 @@
 # AB_Testing_Udacity_Free-trial-screener
+----------------------------------------
  
 **Project Instruction**: https://docs.google.com/document/u/1/d/1aCquhIqsUApgsxQ8-SQBAigFDcfWVVohLEXcV6jWbdI/pub
 
@@ -20,12 +21,14 @@ The unit of diversion is a cookie, although if the student enrolls in the free t
 
 ### Metric Choice
 **Invariant Metrics**
+
 In the given experiment, the following matrics are chosen as the invariant metrics which we could expect a similar distribution in both control and experiment groups. 
  - Number of cookies: That is, number of unique cookies to view the course overview page. This is the unit of diversion and even distribution amongst the control and experiment groups is expected.
  - Number of clicks: That is, number of unique cookies to click the "Start free trial" button (which happens before the free trial screener is trigger). Equal distribution amongst the experiment and control groups would be expected since at this point in the funnel the experience is the same for all users and therefore elements of the experiment would not be expected to impact clicking the "start free trial" button.
  - Click-through-probability: That is, number of unique cookies to click the "Start free trial" button divided by number of unique cookies to view the course overview page. Till the time the user clicks the "start free trial" button the user experience is same for all the users. Hence, we expect equal distribution in both the groups.
   
 **Evaluation Metrics**
+
 Evaluation metrics are chosen since there is a possibility of different distribution between experiment and control groups as a function of experiment. Each evaluation metric is associated with a minimum difference (dmin) that must be observed for consideration in the decision to launch the experiment. The ultimate goal is to minimize student frustation and use the limited coaching resources most efficiently. With this in mind, the following conditions must be satisfied -
  - Gross conversion: That is, number of user-ids to complete checkout and enroll in the free trial divided by number of unique cookies to click the "Start free trial" button. (dmin= 0.01) **Decrease gross conversion** is expected if the screener is effective, as less students would enroll in the free trial due to the reminder and would choose to access the course materials for free instead. 
  - Retention: That is, number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by number of user-ids to complete checkout. (dmin=0.01) **Increase retention** is expected if the screener is effective. Since the function is aims to filter out those students who tend to cancel the course early, which means the total number of user-ids to complete checkout would decrease. Therefore the ratio of users who remained enrolled past the 14-day boundary to the number of users to complete checkout should increase.
@@ -34,4 +37,5 @@ Evaluation metrics are chosen since there is a possibility of different distribu
 **Unused Metrics**
  - Number of user-ids: That is, number of users who enroll in the free trial. User-ids are tracked only after enrolling in the free trial and equal distribution between the control and experimental branches would not be expected. However, user-id count could be used to evaluate how many enrollments stayed beyond the 14 day free trial boundary. Thus, it's not chosen as the metrics. 
 
-
+### Measuring Standard Deviation
+For each of the evaluation metrics, the analytical estimates of standard deviation is calculated for a sample size of 5000 unique cookies visiting the course overview page. The standard deviation are calculated using the [Baseline_Values](Data/Baseline_Values.csv).
