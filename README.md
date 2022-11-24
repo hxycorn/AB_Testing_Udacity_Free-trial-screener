@@ -94,5 +94,6 @@ All invariant metrics passed the sanity checks.
  |Net Conversion|0.0075|-0.0048|-0.0116|0.0019|Neither statistically nor practically significant|
  
  -For gross conversion, the confidence interval doesn't include 0 and include the practical boundary (0.01), thus it's statistically and practically important. 
+ 
  -For net conversion, the confidence interval does include 0 and dosen't include the practical boundary (0.0075), thus it's neither statistically nor practically important.
  
