@@ -52,6 +52,7 @@ For each of the evaluation metrics, the analytical estimates of standard deviati
 The following calculation is based on the [Baseline_Values](Data/Baseline_Values.csv).
 
 **Number of Samples vs Power**
+
 The alpha vaue of 0.05 and beta value of 0.2 is used in all the cases. The total number of pageviews needed to achieve enough statistical power for each evaluation metrics in the experiments is calculated separately using the [online calculator](https://www.evanmiller.org/ab-testing/sample-size.html).
 
 **_Pageviews Required for Each Evaluation Metrics_**
@@ -66,3 +67,22 @@ The alpha vaue of 0.05 and beta value of 0.2 is used in all the cases. The total
 |Total sample size|51,670|78,230|54,826|
 |Click or Enrollment Rate|0.08|0.0165|0.08|
 |Total Pageviews|645,875|4,741,212|685,325|
+
+The required pageviews to achieve the stastical power is the maximum total pageviws values among all the evaluation metrics. Therefore, the pageview numbers should be 4,741,212 based on the above calculation.
+
+## Experiment Analysis
+All the analysis is based on the following experiment data: [Control Group Data](Data/Project_Results_Control.csv) and [Experiment Group Data](Data/Project_Results_Experiment.csv).
+
+### Sanity Checks
+The sanity checks is primarily for the invariant metrics that discussed above, which is **Number of cookies**, **Number of clicks**, and **Click-through-probability**. For the invariant metrics, equal diversion for both control and experiment groups is expected. Therefore, all invariant metrics are tested given the 95% confidence interval. The sanity check results are listed in the table below. 
+
+|Metric|Expected|Observed(Control)|Observed(Experiment)|CI Lower_Bound|CI Upper Bound|Result|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|Number of cookies|0.5000|0.5006|0.4994|0.4988|0.5012|Pass|
+|Number of clicks|0.5000|0.5005|0.4995|0.4959|0.5042|Pass|
+|Click-through-probability|0.08213|0.08213|0.08218|0.08121|0.08304|Pass|
+
+All invariant metrics passed the sanity checks. 
+
+### Result Analysis
+ -**Practical and Statistical Significance**
