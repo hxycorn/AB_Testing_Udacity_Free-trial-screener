@@ -97,3 +97,44 @@ All invariant metrics passed the sanity checks.
  
  -For net conversion, the confidence interval does include 0 and dosen't include the practical boundary (0.0075), thus it's neither statistically nor practically important.
  
+ -**Sign Tests**
+ 
+ A sign test is another method to validate the result obtained above. We check if the trend of change we observed (decrease of gross conversion) was evident in the daily data. We are going to compute the metric's value per day and then count on how many days the metric was lower in the experiment group and this will be the number of success for the binomial variable. We then check the proportion of days of success out of all the available days.  
+ Baesd on the "success" number for each metrics, the p-value could be calculated using the [online sign and binomial test calculator](https://www.graphpad.com/quickcalcs/binomial2/).
+ |Metric|Success Number|Trial Number|p-value|Statistically important @ α=0.05?|
+ |:---|:---:|:---:|:---:|:---:|
+ |Gross Conversion|19|23|0.0026|Yes|
+ |Net Conversion|13|23|0.6776|No|
+
+ 
+ ## Summary
+ The purpose of conducting this experiment was to test if the free trial screener could improve learning experience and completion rates. Udacity students were diverted by cookies into experiment and control group. The students in the experiment group will be directed to ask their devoted time to the course after clicking a "start free trial button", and suggested to enroll or use the free course materials while the control group will see the regular enrollment button or use the free material in the homepage.
+
+ We selected three invariant metrics (Number of Cookies, Number of clicks on "start free trial", and Click-Through-Probability)as our metrics for validation and sanity check. The evaluation metrics we selected are Gross Conversion (enrollment/cookies) and Net Conversion (payments/cookies). The null hypothesis is that there is no difference in the evaluation metrics between the groups, futhermore, a practical signifcance threshold was set for each metric. There are two requirements to lauch the feature: 1. The null hypothesis is rejected for both evaluation metircs, meaning there is no difference in the evaluation metrics between the groups. 2. A practical signifcance threshold was set for each metric should be met, meaning the minimun difference should exceed the practical signficance threshold.
+ 
+ We decided not to use the Bonferonni correction, given our acceptance criteria requires statiscally signifcant differences for ALL evaluation metrics, and so the use of the Bonferonni correction is not appropriate. The Bonferonni correction is a method for controlling for type I errors (false positives) when using multiple metrics in which relevance of ANY of the metrics matches the hypothesis. In this case the risk of type I errors increases as the number of metrics increases (signifcance by random chance). In our case in which ALL metrics must be relevant to launch, the risk of type II errors (false negatives) increases as the number of metrics increases, so it stands to reason that controlling for false positives is not consistent with our acceptance criteria.
+
+The results revealed the equal distribution of cookies into the control and experimental groups for the invariant metrics, at the 95% CI. A difference in gross conversion was found to be statistically signficant at the 95% CI and was practically significant, and thus the null hypothesis was rejected. However, the Net Conversion was found to be neither statistically nor practically signficant at the 95% CI.  
+
+## Recommendation
+We expect filtering students as a function of study time commitment would improve the overall student experience and the coaches' capacity to support students who are likely to complete the course, without significantly reducing the number of students who continue past the free trial. A statistically and practically signficant decrease in Gross Conversion was observed but with no significant differences in Net Conversion. This translates to a decrease in enrollment not coupled to an increase in students staying for the requisite 14 days to trigger payment. Given these two reason, I suggest not launching the experiment but to pursue other experiments.
+
+
+## Follow-up Experiment
+With the goal of reduce early cancellation, there are a variety of strategies could be taken for intervention. 
+
+The first timepoint for intervention is pre-enrollment. We could try to take strategies to filter out students who are likely to become frustrated and quit early. The above experiment was focused only on time commiment to the course and did not consider other reasons. Actually, students may also drop the course due to other reasons, for example: lack of pre-requisite skills/experience. Therefore, we could design an experiment to add a popup checklist of pre-requisite skills after they click on the "start free trial". This experiment would be similar to the time commitment poll, but it may increase the selectivity of the pre-enrollment filter. A succesful experiment would be one in which there is a signficant decrease in Gross Conversion coupled to a significant increase in Net Conversion.
+
+The second timepoint for interverntion is post-enrollment but pre-payment. One factor that could affect students performance is the price of the course. Some students may think the price of the course is too high and choose to drop the course before the free trial ends. In this case, I propose we design an experiment to provide students whom chose to cancel the course a discount on the course. The experiment would function in the following manner. 
+
+**Setup**: Upon the student clicks on the "cancel" button, they wound be asked to choose a reason for their cancellation, if they chose "the price is too expensive", then they would be offered 15% off promo code for the course. 
+
+**Null Hypothesis**: The promo code for the course will not increase the students enrolled beyond the 14 day free trial period by a significant amount. 
+
+**Alternative Hypothesis**: The promo code will significantly increase the number of students enrolled beyond the 14 day free trial period by a significant amount and result in an increase in the total revenue. 
+
+**Unit of Diversions**: The unit of diversion will be user-id as the change takes place after a student creates an account and enrolls in a course.
+
+**Invariant Metrics**: The invariant metric will be user-id, since an equal distribution between experiment and control would be expected as a property of the setup.
+
+**Evaluation Metrics**: Retention (number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by number of user-ids to complete checkout) and Total Revenue (number of user-ids paid at original price * original price + number of user-ids paid at discounted price * discounted price). If a statistically and practically signifcant positive change in Retention and Total Revenue is observed, the experiment will be launched.
